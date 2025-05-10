@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moral Merry High | <%= page.charAt(0).toUpperCase() + page.slice(1) %></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <% if (page === 'home') { %>
+        <link rel="stylesheet" href="/css/home.css">
+    <% } else if (page === 'about') { %>
+        <link rel="stylesheet" href="/css/about.css">
+    <% } else if (page === 'admissions') { %>
+        <link rel="stylesheet" href="/css/admissions.css">
+    <% } else if (page === 'programs') { %>
+        <link rel="stylesheet" href="/css/programs.css">
+    <% } else if (page === 'news') { %>
+        <link rel="stylesheet" href="/css/news.css">
+    <% } else if (page === 'contact') { %>
+        <link rel="stylesheet" href="/css/contact.css">
+    <% } %>
+    <script src="/js/main.js" defer></script>
+</head>
+<body>
+    <div class="color-gradient-bg"></div>
+    <header class="glass-nav">
+        <div class="logo-container">
+            <svg class="logo-icon" viewBox="0 0 24 24">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+            </svg>
+            <h1 class="logo-text">Moral Merry <span>High</span></h1>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="/" class="<%= page === 'home' ? 'active' : '' %> nav-link">Home</a></li>
+                <li><a href="/about" class="<%= page === 'about' ? 'active' : '' %> nav-link">About</a></li>
+                <li><a href="/admissions" class="<%= page === 'admissions' ? 'active' : '' %> nav-link">Admissions</a></li>
+                <li><a href="/programs" class="<%= page === 'programs' ? 'active' : '' %> nav-link">Programs</a></li>
+                <li><a href="/news" class="<%= page === 'news' ? 'active' : '' %> nav-link">News</a></li>
+                <li><a href="/contact" class="<%= page === 'contact' ? 'active' : '' %> nav-link">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="nav-cta">
+            <a href="/admissions" class="cta-button">Apply Now</a>
+        </div>
+        <button class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+    <main>

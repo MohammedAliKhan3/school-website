@@ -1,0 +1,93 @@
+<%- include('partials/header', {page: 'home'}); %>
+
+<main class="home-container">
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title"><%= heroTitle %></h1>
+      <p class="hero-subtitle"><%= heroSubtitle %></p>
+      <div class="hero-buttons">
+        <a href="/admissions" class="cta-button">Apply Now</a>
+        <a href="/programs" class="cta-button outline">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="about-content">
+      <h2>Our Journey</h2>
+      <p>Founded in 1985, Moral Merry has grown from a small community school to a nationally recognized institution. Our commitment to excellence in education has remained unwavering through decades of growth and change.</p>
+      <div class="journey-stats">
+        <div class="stat">
+          <span class="stat-number">30+</span>
+          <span class="stat-label">Years of Excellence</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">90%</span>
+          <span class="stat-label">Graduation Rate</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">10+</span>
+          <span class="stat-label">Activities Yearly</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <h2>Why Choose Moral Merry</h2>
+    <div class="features-grid">
+      <% features.forEach((feature) => { %>
+        <div class="feature-card">
+          <div class="feature-icon"><%= feature.icon %></div>
+          <% if (feature.title === 'Good Academics') { %>
+            <h3>Good Academics</h3>
+            <p><%= feature.description %></p>
+          <% } else if (feature.title === 'Sports Championship') { %>
+            <h3>Sports & Fitness</h3>
+            <p>Our school encourages physical fitness through various sports and wellness programs.</p>
+          <% } else if (feature.title === 'Arts') { %>
+            <h3>Annual Day & Science Day</h3>
+            <p>Celebrate creativity and innovation with vibrant annual day and science day events.</p>
+          <% } else { %>
+            <h3><%= feature.title %></h3>
+            <p><%= feature.description %></p>
+          <% } %>
+        </div>
+      <% }); %>
+    </div>
+  </section>
+
+  <section class="news-section">
+    <h2>Latest Updates</h2>
+    <div class="news-grid">
+      <% news.forEach((item) => { %>
+        <article class="news-card">
+          <div class="news-date"><%= item.date %></div>
+          <h3><%= item.title %></h3>
+          <p><%= item.excerpt %></p>
+          <a href="/news" class="read-more">Read More →</a>
+        </article>
+      <% }); %>
+      <article class="news-card">
+        <div class="news-date">Coming Soon</div>
+        <h3>Smart Classes</h3>
+        <p>Smart classroom technology is being introduced to enhance interactive learning.</p>
+        <a href="/news" class="read-more">Read More →</a>
+      </article>
+      <article class="news-card">
+        <div class="news-date">Coming Soon</div>
+        <h3>AI Integrated Home Coup-Ups</h3>
+        <p>New AI tools are being introduced to support children’s learning from home effectively.</p>
+        <a href="/news" class="read-more">Read More →</a>
+      </article>
+      <article class="news-card">
+        <div class="news-date">Coming Soon</div>
+        <h3>Campus Expansion</h3>
+        <p>We're expanding our campus facilities to provide even more opportunities and resources for our students.</p>
+        <a href="/news" class="read-more">Read More →</a>
+      </article>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer'); %>
