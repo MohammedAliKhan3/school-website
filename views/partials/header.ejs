@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="/css/news.css">
     <% } else if (page === 'contact') { %>
         <link rel="stylesheet" href="/css/contact.css">
+    <% } else if (page === 'gallery') { %>
+        <link rel="stylesheet" href="/css/gallery.css">
     <% } %>
     <script src="/js/main.js" defer></script>
 </head>
@@ -31,6 +33,7 @@
             </svg>
             <h1 class="logo-text">Moral Merry <span>High</span></h1>
         </div>
+        <div class="nav-spacer"></div> <!-- Added spacer element -->
         <nav class="main-nav">
             <ul>
                 <li><a href="/" class="<%= page === 'home' ? 'active' : '' %> nav-link">Home</a></li>
@@ -38,6 +41,7 @@
                 <li><a href="/admissions" class="<%= page === 'admissions' ? 'active' : '' %> nav-link">Admissions</a></li>
                 <li><a href="/programs" class="<%= page === 'programs' ? 'active' : '' %> nav-link">Programs</a></li>
                 <li><a href="/news" class="<%= page === 'news' ? 'active' : '' %> nav-link">News</a></li>
+                <li><a href="/gallery" class="<%= page === 'gallery' ? 'active' : '' %> nav-link">Gallery</a></li>
                 <li><a href="/contact" class="<%= page === 'contact' ? 'active' : '' %> nav-link">Contact</a></li>
             </ul>
         </nav>

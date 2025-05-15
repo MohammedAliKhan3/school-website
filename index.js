@@ -185,8 +185,28 @@ app.get('/contact', (req, res) => {
   });
 });
 
+
+// Gallery Page
+app.get('/gallery', (req, res) => {
+  res.render('gallery', {
+    page: 'gallery',
+    galleryTitle: "Campus Life & Events",
+    images: [
+      { src: "/images/assembly.jpg", alt: "Assembly" },
+      { src: "/images/scienceDay.jpg", alt: "Science Exhibition" },
+      { src: "/images/sports.jpg", alt: "Sports Meet" },
+      { src: "/images/fancyDress.jpg", alt: "Fancy Dress" },
+      { src: "/images/yoga.jpg", alt: "Yoga" },
+      { src: "/images/classroom.jpg", alt: "Classroom Activities" }
+    ]
+  });
+});
+
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
