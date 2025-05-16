@@ -1,6 +1,7 @@
 <%- include('partials/header', {page: 'home'}); %>
 
 <main class="home-container">
+  <!-- Hero Section with Blue Gradient -->
   <section class="hero-section">
     <div class="hero-content">
       <h1 class="hero-title"><%= heroTitle %></h1>
@@ -33,58 +34,60 @@
     </div>
   </section>
 
-  <section class="features-section">
-    <h2>Why Choose Moral Merry</h2>
-    <div class="features-grid">
-      <% features.forEach((feature) => { %>
-        <div class="feature-card">
-          <div class="feature-icon"><%= feature.icon %></div>
-          <% if (feature.title === 'Good Academics') { %>
-            <h3>Good Academics</h3>
-            <p><%= feature.description %></p>
-          <% } else if (feature.title === 'Sports Championship') { %>
-            <h3>Sports & Fitness</h3>
-            <p>Our school encourages physical fitness through various sports and wellness programs.</p>
-          <% } else if (feature.title === 'Arts') { %>
-            <h3>Annual Day & Science Day</h3>
-            <p>Celebrate creativity and innovation with vibrant annual day and science day events.</p>
-          <% } else { %>
-            <h3><%= feature.title %></h3>
-            <p><%= feature.description %></p>
-          <% } %>
+<!-- Campus Gallery Section -->
+<section class="gallery-section">
+  <div class="section-header">
+    <h2>Our Campus</h2>
+    <p class="section-subtitle">State-of-the-art facilities for holistic development</p>
+  </div>
+  <div class="gallery-grid">
+    <% campusImages.slice(0,4).forEach((image) => { %>
+      <div class="gallery-item">
+        <img src="<%= image.src %>" alt="<%= image.alt %>" class="gallery-image">
+        <div class="gallery-caption">
+          <h3><%= image.caption %></h3>
+          <a href="/gallery" class="gallery-link">View More</a>
         </div>
-      <% }); %>
-    </div>
-  </section>
+      </div>
+    <% }); %>
+  </div>
+</section>
+
+  <section class="features-section">
+  <h2>Why Choose Moral Merry</h2>
+  <div class="features-grid">
+    <% features.slice(0,4).forEach((feature) => { %>
+      <div class="feature-card">
+        <div class="feature-icon"><%= feature.icon %></div>
+        <h3><%= feature.title %></h3>
+        <p><%= feature.description %></p>
+      </div>
+    <% }); %>
+  </div>
+</section>
 
   <section class="news-section">
     <h2>Latest Updates</h2>
     <div class="news-grid">
       <% news.forEach((item) => { %>
         <article class="news-card">
-          <div class="news-date"><%= item.date %></div>
-          <h3><%= item.title %></h3>
-          <p><%= item.excerpt %></p>
-          <a href="/news" class="read-more">Read More →</a>
+          <div class="news-image" style="background-image: url('/images/scienceDay.jpg');"></div>
+          <div class="news-content">
+            <div class="news-date"><%= item.date %></div>
+            <h3><%= item.title %></h3>
+            <p><%= item.excerpt %></p>
+            <a href="/news" class="read-more">Read More →</a>
+          </div>
         </article>
       <% }); %>
       <article class="news-card">
-        <div class="news-date">Coming Soon</div>
-        <h3>Smart Classes</h3>
-        <p>Smart classroom technology is being introduced to enhance interactive learning.</p>
-        <a href="/news" class="read-more">Read More →</a>
-      </article>
-      <article class="news-card">
-        <div class="news-date">Coming Soon</div>
-        <h3>AI Integrated Home Coup-Ups</h3>
-        <p>New AI tools are being introduced to support children’s learning from home effectively.</p>
-        <a href="/news" class="read-more">Read More →</a>
-      </article>
-      <article class="news-card">
-        <div class="news-date">Coming Soon</div>
-        <h3>Campus Expansion</h3>
-        <p>We're expanding our campus facilities to provide even more opportunities and resources for our students.</p>
-        <a href="/news" class="read-more">Read More →</a>
+        <div class="news-image" style="background-image: url('/images/classroom.jpg');"></div>
+        <div class="news-content">
+          <div class="news-date">Coming Soon</div>
+          <h3>Smart Classes</h3>
+          <p>Smart classroom technology is being introduced to enhance interactive learning.</p>
+          <a href="/news" class="read-more">Read More →</a>
+        </div>
       </article>
     </div>
   </section>

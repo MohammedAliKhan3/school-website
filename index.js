@@ -30,6 +30,11 @@ app.get('/', (req, res) => {
         title: "Arts Education", 
         icon: "🎨", 
         description: "Award-winning visual and performing arts programs" 
+      },
+      { 
+        title: "Yoga", 
+        icon: "🎨", 
+        description: "Kids are taught Yoga to be stress free." 
       }
     ],
     news: [
@@ -52,17 +57,22 @@ app.get('/', (req, res) => {
     ],
     campusImages: [
       {
-        src: "/images/campus1.jpg",
+        src: "/images/SirSpeech.jpg",
         alt: "Main academic building",
         caption: "Our state-of-the-art academic center"
       },
       {
-        src: "/images/campus2.jpg",
+        src: "/images/yoga.jpg",
         alt: "Sports facilities",
         caption: "Olympic-sized swimming pool and track"
       },
       {
-        src: "/images/campus3.jpg",
+        src: "/images/treeDress.jpg",
+        alt: "Library",
+        caption: "Award-winning library with 50,000 volumes"
+      },
+       {
+        src: "/images/StudentMarch.jpg",
         alt: "Library",
         caption: "Award-winning library with 50,000 volumes"
       }
@@ -197,7 +207,22 @@ app.get('/gallery', (req, res) => {
       { src: "/images/sports.jpg", alt: "Sports Meet" },
       { src: "/images/fancyDress.jpg", alt: "Fancy Dress" },
       { src: "/images/yoga.jpg", alt: "Yoga" },
-      { src: "/images/classroom.jpg", alt: "Classroom Activities" }
+      { src: "/images/studentSong.jpg", alt: "Students Singing" },
+      { src: "/images/prize3.jpg", alt: "Prize" },
+      { src: "/images/class2.jpg", alt: "Classroom 1" },
+      { src: "/images/class3.jpg", alt: "Classroom 2" },
+      { src: "/images/dress1.jpg", alt: "fancy dress 1" },
+      { src: "/images/dress2.jpg", alt: "fancy dress 2" },
+      { src: "/images/dress3.jpg", alt: "fancy dress 3" },
+      { src: "/images/yoga2.jpg", alt: "Yoga 2" },
+      { src: "/images/boysPose.jpg", alt: "Boys Pose" },
+      { src: "/images/girlsPose.jpg", alt: "Girls Pose" },
+      { src: "/images/kidsPlaying1.jpg", alt: "Kids Playing 1" },
+      { src: "/images/kidsPlaying2.jpg", alt: "Kids Playing 2" },
+      { src: "/images/kidsPlaying3.jpg", alt: "Kids Playing 3" },
+      { src: "/images/scienceExhibition1.jpg", alt: "Science Exhibition 1" },
+      { src: "/images/scienceExhibition2.jpg", alt: "Science Exhibition 2" },
+      { src: "/images/scienceExhibition3.jpg", alt: "Science Exhibition 3" }
     ]
   });
 });
