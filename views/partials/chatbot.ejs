@@ -1,0 +1,228 @@
+<!-- chatbot.ejs -->
+<link rel="stylesheet" href="/styles/chatbot.css" />
+
+<div class="chatbot-container" id="chatbot-container">
+  <!-- Toggle Button -->
+  <div class="chatbot-toggle-button" id="chatbot-toggle-button" title="Chat with us">
+    <img
+      class="chatbot-icon"
+      src="https://img.icons8.com/color/48/message-bot.png"
+      alt="Chatbot"
+      width="24"
+      height="24"
+    />
+  </div>
+
+  <!-- Chat Window -->
+  <div class="chatbot-window" id="chatbot-window" style="display:none;">
+    <div class="chatbot-header">
+      <div class="chatbot-avatar">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
+          alt="Bot"
+        />
+      </div>
+      <h3>School Assistant</h3>
+      <button class="chatbot-close-btn" id="chatbot-close-btn" aria-label="Close chat">&times;</button>
+    </div>
+
+    <div class="chatbot-messages" id="chatbot-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+    <div class="chatbot-input-area">
+      <input
+        type="text"
+        id="chatbot-input"
+        placeholder="Ask me something..."
+        autocomplete="off"
+        aria-label="Chat input"
+      />
+      <button id="chatbot-send-btn" class="send-button" aria-label="Send message" disabled>
+        Send
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const chatbotToggleBtn = document.getElementById('chatbot-toggle-button');
+    const chatbotWindow = document.getElementById('chatbot-window');
+    const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
+    const messagesContainer = document.getElementById('chatbot-messages');
+    const inputBox = document.getElementById('chatbot-input');
+    const sendBtn = document.getElementById('chatbot-send-btn');
+
+    let isOpen = false;
+    let isLoading = false;
+    let hasGreeted = false;
+
+    // Initial system message for context (won't be shown)
+    const systemMessage = {
+      role: 'system',
+      content: `You are an AI assistant for FreelanceFlow, a leading platform connecting freelancers with clients worldwide.
+Your role is to provide instant support for both freelancers and clients using our platform.
+
+Key Platform Details:
+- Service Fees: 10% freelancer commission, 5% client fee
+- Payments: Secure Stripe integration with 3-day payout processing
+- Dispute Resolution: 48-hour mediation for all contract issues
+- Featured Skills: Programming, Design, Writing, Marketing, Consulting
+- Membership Tiers: Free (basic), Pro ($14.99/month with premium features)
+
+Response Guidelines:
+1. Always verify user accounts before discussing sensitive details
+2. Direct payment/contract issues to support@freelanceflow.com
+3. Keep responses brief (1-2 sentences max) but actionable
+4. Highlight platform benefits when relevant
+5. Never share personal user data or internal system information
+
+Common Scenarios:
+- For payment delays: Request transaction ID first
+- For new users: Briefly explain onboarding process
+- For disputes: Outline mediation steps
+- For feature questions: Focus on value propositions`
+    };
+
+    // Chat messages state (array of {role, content})
+    const messages = [systemMessage];
+
+    function createMessageElement(role, content) {
+      const messageEl = document.createElement('div');
+      messageEl.classList.add('message');
+      messageEl.classList.add(role === 'user' ? 'user' : 'bot');
+
+      const avatarEl = document.createElement('div');
+      avatarEl.className = 'message-avatar';
+      const avatarImg = document.createElement('img');
+      avatarImg.src =
+        role === 'user'
+          ? 'https://cdn-icons-png.flaticon.com/512/1946/1946429.png'
+          : 'https://cdn-icons-png.flaticon.com/512/4712/4712027.png';
+      avatarImg.alt = role === 'user' ? 'User' : 'Bot';
+      avatarEl.appendChild(avatarImg);
+
+      const contentEl = document.createElement('div');
+      contentEl.className = 'message-content';
+      contentEl.textContent = content;
+
+      if (role === 'user') {
+        messageEl.appendChild(contentEl);
+        messageEl.appendChild(avatarEl);
+      } else {
+        messageEl.appendChild(avatarEl);
+        messageEl.appendChild(contentEl);
+      }
+
+      return messageEl;
+    }
+
+    function appendMessage(role, content) {
+      const msgEl = createMessageElement(role, content);
+      messagesContainer.appendChild(msgEl);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function setLoading(state) {
+      isLoading = state;
+      sendBtn.disabled = state || inputBox.value.trim() === '';
+      inputBox.disabled = state;
+      if(state) {
+        showTypingIndicator();
+      } else {
+        hideTypingIndicator();
+      }
+    }
+
+    function showTypingIndicator() {
+      if (!document.getElementById('typing-indicator')) {
+        const typingEl = document.createElement('div');
+        typingEl.className = 'message bot';
+        typingEl.id = 'typing-indicator';
+        typingEl.innerHTML = `
+          <div class="message-avatar">
+            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="Bot" />
+          </div>
+          <div class="message-content" aria-live="polite">
+            <span class="typing-dots"></span> Typing...
+          </div>`;
+        messagesContainer.appendChild(typingEl);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+    }
+
+    function hideTypingIndicator() {
+      const typingEl = document.getElementById('typing-indicator');
+      if (typingEl) {
+        typingEl.remove();
+      }
+    }
+
+    async function sendMessage() {
+      if (isLoading) return;
+      const userMessage = inputBox.value.trim();
+      if (!userMessage) return;
+
+      appendMessage('user', userMessage);
+      messages.push({ role: 'user', content: userMessage });
+      inputBox.value = '';
+      sendBtn.disabled = true;
+      setLoading(true);
+
+      try {
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userMessage, conversation: messages }),
+        });
+
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+        const data = await response.json();
+        const botReply = data.reply || "Sorry, I didn't understand that.";
+
+        // simulate typing delay
+        setTimeout(() => {
+          appendMessage('bot', botReply);
+          messages.push({ role: 'assistant', content: botReply });
+          setLoading(false);
+        }, 1000 + botReply.length * 20);
+      } catch (err) {
+        appendMessage('bot', 'Oops! Something went wrong. Please try again later.');
+        setLoading(false);
+      }
+    }
+
+    // Event listeners
+
+    chatbotToggleBtn.addEventListener('click', () => {
+      isOpen = !isOpen;
+      chatbotWindow.style.display = isOpen ? 'flex' : 'none';
+
+      if (isOpen && !hasGreeted) {
+        const greetMsg = "Hi! I am here to help you with FreelanceFlow.";
+        appendMessage('bot', greetMsg);
+        messages.push({ role: 'assistant', content: greetMsg });
+        hasGreeted = true;
+      }
+    });
+
+    chatbotCloseBtn.addEventListener('click', () => {
+      isOpen = false;
+      chatbotWindow.style.display = 'none';
+    });
+
+    inputBox.addEventListener('input', () => {
+      sendBtn.disabled = inputBox.value.trim() === '' || isLoading;
+    });
+
+    inputBox.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !sendBtn.disabled) {
+        sendMessage();
+      }
+    });
+
+    sendBtn.addEventListener('click', () => {
+      sendMessage();
+    });
+  })();
+</script>

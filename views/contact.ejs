@@ -61,20 +61,39 @@
       <h2 class="text-center">Send Us a Message</h2>
       <p class="text-center">Have questions? We're here to help</p>
     </div>
-    <form class="contact-form" data-scroll>
+
+    <!-- Hidden iframe for form submission -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+    <form 
+      id="contact-form" 
+      class="contact-form" 
+      method="POST" 
+      action="https://submit-form.com/YRrJh2Wfb"
+      target="hidden_iframe"
+      data-scroll
+    >
+      <!-- Hidden fields required by submit-form.com -->
+      <!-- Keep _redirect empty or to your own thank you page if you want -->
+      <input type="hidden" name="_redirect" value="" />
+      <input type="hidden" name="_email.template.title" value="New Contact Form Submission" />
+      <input type="hidden" name="_email.template.auto_response" value="Thank you for contacting us! We will get back to you soon." />
+      <input type="text" name="_honeypot" style="display:none" />
+
       <div class="form-row">
         <div class="form-group">
           <label for="name">Full Name</label>
-          <input type="text" id="name" required>
+          <input type="text" id="name" name="name" placeholder="Enter your full name" required />
         </div>
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" required>
+          <input type="email" id="email" name="email" placeholder="example@email.com" required />
         </div>
       </div>
+
       <div class="form-group">
         <label for="subject">Subject</label>
-        <select id="subject" required>
+        <select id="subject" name="subject" required>
           <option value="" disabled selected>Select a topic</option>
           <option value="admissions">Admissions Inquiry</option>
           <option value="academics">Academic Questions</option>
@@ -82,23 +101,28 @@
           <option value="other">Other Inquiry</option>
         </select>
       </div>
+
       <div class="form-group">
         <label for="message">Your Message</label>
-        <textarea id="message" rows="6" required></textarea>
+        <textarea id="message" name="message" rows="6" placeholder="Enter your message here..." required></textarea>
       </div>
+
       <div class="text-center">
         <button type="submit" class="cta-button">Send Message</button>
       </div>
     </form>
+
+    <div id="form-message" style="display:none; margin-top: 20px; color: green; font-weight: bold; text-align:center;">
+      Thank you for contacting us! We will get back to you soon.
+    </div>
   </div>
 </section>
 
-<!-- Google Map Section -->
 <section class="map-section">
   <div class="container">
     <div class="map-container" data-scroll>
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.534407361078!2d78.45572147503065!3d17.433555183393872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb979a87c56565%3A0x838b6943d5b06b26!2sMasab%20Tank%2C%20Hyderabad%2C%20Telangana%20500028!5e0!3m2!1sen!2sin!4v1685445000000!5m2!1sen!2sin"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.2124437079583!2d78.44528087581904!3d17.401589502394536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9715eddbce3f%3A0x2d78ddbdf1c2643!2sMORAL%20MERRY%20HIGH%20SCHOOL!5e0!3m2!1sen!2sin!4v1747457300712!5m2!1sen!2sin"
         width="100%"
         height="450"
         style="border:0;"
@@ -115,3 +139,16 @@
 </section>
 
 <%- include('partials/footer'); %>
+<%- include('partials/chatbot') %>
+<script src="/js/public.js"></script>
+<script>
+  const form = document.getElementById('contact-form');
+  const iframe = document.getElementById('hidden_iframe');
+  const messageBox = document.getElementById('form-message');
+
+  iframe.onload = function() {
+    // Show thank you message when the iframe loads response after form submit
+    messageBox.style.display = 'block';
+    form.reset();
+  };
+</script>
