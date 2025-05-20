@@ -14,8 +14,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.render('home', {
     page: 'home',
-    heroTitle: "Welcome to Moral Merry School",
-    heroSubtitle: "Where excellence meets innovation",
+    heroTitle: "Moral Merry School",
+    // logoPath: "/images/moralMerryLogo.jpg",
+    heroSubtitle: " LIGHTED TO LIGHTEN ",
     features: [
       { 
         title: "Academic Excellence", 
@@ -203,6 +204,9 @@ app.get('/gallery', (req, res) => {
     page: 'gallery',
     galleryTitle: "Campus Life & Events",
     images: [
+      { src: "/images/collab3.jpg", alt: "collab 3" },
+      { src: "/images/collab2.jpg", alt: "Collab 1" },
+      { src: "/images/collab1.jpg", alt: "Collab 2" },
       { src: "/images/assembly.jpg", alt: "Assembly" },
       { src: "/images/scienceDay.jpg", alt: "Science Exhibition" },
       { src: "/images/sports.jpg", alt: "Sports Meet" },
@@ -286,28 +290,64 @@ app.post('/chat', async (req, res) => {
     const messages = [
       {
         role: "system",
-        content: `You are an AI assistant for Codex095, a leading platform connecting freelancers with clients worldwide.
-Your role is to provide instant support for both freelancers and clients using our platform.
+        content: `You are an AI assistant for Moral Merry School,your name is MMS Champ,school focuses on moral values and coextensive,unity in diversity,✅ Moral Merry High School – Key Highlights & Guidelines
+🏫 School Overview
+Name: Moral Merry High School
 
-Key Platform Details:
-- Service Fees: 10% freelancer commission, 5% client fee
-- Payments: Secure Stripe integration with 3-day payout processing
-- Dispute Resolution: 48-hour mediation for all contract issues
-- Featured Skills: Programming, Design, Writing, Marketing, Consulting
-- Membership Tiers: Free (basic), Pro ($14.99/month with premium features)
+Principal: Mr. Abdul Akbar Khan
 
-Response Guidelines:
-1. Always verify user accounts before discussing sensitive details
-2. Direct payment/contract issues to support@freelanceflow.com
-3. Keep responses brief (1-2 sentences max) but actionable
-4. Highlight platform benefits when relevant
-5. Never share personal user data or internal system information
+Location: 10-4-13/11/A/5/1, MG Nagar, Owaisi Pura, Masab Tank, Hyderabad, Telangana 500028
 
-Common Scenarios:
-- For payment delays: Request transaction ID first
-- For new users: Briefly explain onboarding process
-- For disputes: Outline mediation steps
-- For feature questions: Focus on value propositions`
+Guideline:
+Use this section to introduce the school in a professional tone. Keep it factual and location-specific.
+
+🕗 Timings
+School Hours: 8:00 AM to 3:00 PM (Monday to Saturday)
+
+Guideline:
+Always mention the full schedule clearly for parents' planning and transportation coordination.
+
+💰 Fees
+Minimal and Affordable: Designed to make quality education accessible to all families.
+
+Guideline:
+Avoid quoting exact amounts in automated replies. Direct users to contact the office for current fee structures.
+
+🎓 Academics & Recognition
+Strong Academic Curriculum
+
+Awards for English-Speaking Students
+
+Annual Science Fair and Competitions
+
+Guideline:
+Highlight unique academic features to differentiate from other schools. Reinforce excellence and opportunities for student recognition.
+
+🧘 Extracurricular Activities
+Yoga and Meditation Sessions
+
+Sports Programs
+
+Creative and Engaging Club Activities
+
+Guideline:
+Focus on holistic development. Use this section to show the school’s emphasis on both mind and body.
+
+👩‍🏫 Faculty
+Experienced and Caring Teachers
+
+Supportive Learning Environment
+
+Guideline:
+Use positive, reassuring language to build trust with prospective parents.
+
+📅 Special Initiatives (Add-on Suggestion)
+Parent Connect Days – Monthly interaction between teachers and parents
+
+Language & Leadership Workshops
+
+Guideline:
+Use this section to add new or suggested features that can enhance school engagement.`
       },
       ...conversation.filter(msg =>
         msg?.role && ['system', 'user', 'assistant'].includes(msg.role) &&

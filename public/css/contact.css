@@ -11,8 +11,9 @@
 /* Base Styles */
 .contact-hero {
   height: 50vh;
-  background: linear-gradient(rgba(67, 97, 238, 0.8), rgba(58, 12, 163, 0.8)),
-              url('/images/contact-hero.jpg') center/cover no-repeat;
+  /* background: linear-gradient(rgba(67, 97, 238, 0.8), rgba(58, 12, 163, 0.8)),
+              url('/images/contact-hero.jpg') center/cover no-repeat; */
+  background: #13005A !important; 
   display: flex;
   align-items: center;
   position: relative;
