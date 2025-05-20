@@ -24,7 +24,7 @@ This is a full-stack **School Website** project built using **Node.js**, **Expre
 
 ## 💬 Chatbot Integration
 
-The website includes an AI-powered chatbot integrated using an external API (e.g., OpenAI or custom bot). It is embedded via JavaScript and appears as a floating widget.
+The website includes an AI-powered chatbot integrated using an external API . It is embedded via JavaScript and appears as a floating widget.
 
 ### Example Features
 - Responds to common questions like school timings, admissions, contact info
